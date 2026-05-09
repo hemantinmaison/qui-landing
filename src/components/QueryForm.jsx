@@ -274,39 +274,6 @@ const countryCodes = [
   { code: '+263', country: 'ZW' },
 ]
 
-const textFields = [
-  {
-    className: 'field full-name',
-    id: 'full-name',
-    label: 'Full Name',
-    placeholder: 'Enter your full name',
-    required: true,
-  },
-  {
-    className: 'field email',
-    id: 'email',
-    label: 'Email',
-    placeholder: 'Enter Email Address',
-    type: 'email',
-    required: true,
-  },
-]
-
-const phoneFields = [
-  {
-    className: 'field contact',
-    id: 'contact',
-    label: 'Contact Number',
-    required: true,
-  },
-  {
-    className: 'field alt-contact',
-    id: 'alt-contact',
-    label: 'Alt. Contact Number',
-    required: false,
-  },
-]
-
 function CloseIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -330,7 +297,7 @@ function PhoneInput({ id, register, selectName, inputName, error }) {
         <input
           id={id}
           type="tel"
-          placeholder="Enter Your Contact Number"
+          placeholder="Enter Contact Number"
           {...register(inputName)}
           onKeyPress={(e) => {
             if (!/[0-9]/.test(e.key)) {
@@ -604,9 +571,10 @@ function MobileQueryForm({ onClose }) {
                 <input
                   id="mobile-contact"
                   type="tel"
-                  placeholder="Enter Your Contact Number"
+                  placeholder="Enter Contact Number"
                   {...register('contactNumber')}
-                  onKeyPress={(e) => {
+                  onKeyPre
+                  ss={(e) => {
                     if (!/[0-9]/.test(e.key)) {
                       e.preventDefault()
                     }

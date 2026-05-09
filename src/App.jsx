@@ -15,6 +15,11 @@ const menuItems = [
   'Events',
 ]
 
+const socialLinks = {
+  instagram: 'https://www.instagram.com/quicreatives?igsh=emFycWFwazZiajh3',
+  linkedin: 'https://in.linkedin.com/company/the-qu%C3%AD-creatives',
+}
+
 const scrollToTopOnMobile = () => {
   if (window.matchMedia('(max-width: 760px)').matches) {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -166,13 +171,28 @@ function App() {
             ))}
           </ul>
           <div className="menu-socials" aria-label="Social links">
-            <a href="/" aria-label="Instagram">
+            <a
+              href={socialLinks.instagram}
+              aria-label="Instagram"
+              target="_blank"
+              rel="noreferrer"
+            >
               <InstagramIcon />
             </a>
-            <a href="/" aria-label="Facebook">
+            <a
+              href={socialLinks.facebook}
+              aria-label="Facebook"
+              target="_blank"
+              rel="noreferrer"
+            >
               <FacebookIcon />
             </a>
-            <a href="/" aria-label="LinkedIn">
+            <a
+              href={socialLinks.linkedin}
+              aria-label="LinkedIn"
+              target="_blank"
+              rel="noreferrer"
+            >
               <LinkedinIcon />
             </a>
           </div>
