@@ -62,14 +62,20 @@
   border: 0;
   border-radius: clamp(5px, 0.6944vw, 10px);
   background: #000;
-  color: #9e9e9e;
+  color: #fff;
   font-family: var(--font-display);
-  font-size: clamp(8px, 1.1111vw, 16px);
+  font-size: clamp(10px, 1.25vw, 18px);
   line-height: normal;
 }
 
+.phone-input-wrapper,
+.mobile-phone-input-wrapper {
+  width: 100%;
+  position: relative;
+}
+
 .field input,
-.phone-input {
+.phone-input-wrapper {
   height: 66.6667%;
 }
 
@@ -94,15 +100,41 @@
 }
 
 .phone-input {
+  height: 100%;
   display: grid;
-  grid-template-columns: 8% 5% 1fr;
+  grid-template-columns: 90px 15px 1fr;
   align-items: center;
   padding: 0 3.5%;
 }
 
+.country-select,
+.mobile-country-select {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+
+.country-select option,
+.mobile-country-select option {
+  background: #221216;
+  color: #fff;
+}
+
+.required-star {
+  color: #bcbcbc;
+}
+
 .phone-input input {
   height: 100%;
-  padding: 0 0 0 4.5%;
+  padding: 0 0 0 10px;
 }
 
 .country {
@@ -153,12 +185,35 @@
   height: 26.5683%;
 }
 
-.submit-button {
+.submit-container,
+.mobile-submit-container {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.submit-container {
   left: 44.3316%;
   top: 83.7638%;
   width: 11.4119%;
-  height: 8.1181%;
+}
+
+.mobile-submit-container {
+  position: relative;
+  left: auto;
+  right: auto;
+  top: auto;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.submit-button,
+.mobile-submit-button {
+  position: static;
+  width: 100%;
+  height: 44px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: clamp(5px, 0.6944vw, 10px);
   background: #000;
@@ -167,6 +222,46 @@
   font-family: var(--font-display);
   font-size: clamp(8px, 1.1111vw, 16px);
   line-height: normal;
+}
+
+.submit-button:disabled,
+.mobile-submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status-message {
+  font-size: 12px;
+  margin: 0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.status-message.success {
+  color: #4caf50;
+}
+
+.status-message.error {
+  color: #f44336;
+}
+
+.error-text {
+  position: absolute;
+  left: 0;
+  bottom: -15px;
+  color: #f44336;
+  font-size: 10px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.input-error {
+  border: 1px solid #f44336 !important;
+}
+
+.phone-input-wrapper.has-error .phone-input,
+.mobile-phone-input-wrapper.has-error .mobile-phone-input {
+  border: 1px solid #f44336 !important;
 }
 
 .mobile-form-overlay {
@@ -254,15 +349,19 @@
   border: 0;
   border-radius: 10px;
   background: #000;
-  color: #9e9e9e;
+  color: #fff;
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 18px;
   line-height: normal;
 }
 
 .mobile-form-field input,
-.mobile-phone-input {
+.mobile-phone-input-wrapper {
   height: 50px;
+}
+
+.mobile-phone-input {
+  height: 100%;
 }
 
 .mobile-form-field input,
@@ -279,7 +378,7 @@
 
 .mobile-phone-input {
   display: grid;
-  grid-template-columns: 35px 18px minmax(0, 1fr);
+  grid-template-columns: 90px 20px minmax(0, 1fr);
   align-items: center;
   padding: 0 14px;
 }
@@ -287,13 +386,10 @@
 .mobile-phone-input input {
   height: 50px;
   min-width: 0;
-  padding: 0 0 0 14px;
+  padding: 0 0 0 10px;
 }
 
 .mobile-submit-button {
-  position: absolute;
-  left: 112px;
-  top: 640px;
   width: 156px;
   height: 44px;
   border: 1px solid rgba(255, 255, 255, 0.4);
