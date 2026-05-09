@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { isValidPhoneNumber } from 'libphonenumber-js'
 import './QueryForm.css'
 
 const WEB3FORMS_ACCESS_KEY = '6b72d351-35a3-41e6-845f-2da04f04fa23'
@@ -10,12 +11,38 @@ const querySchema = z.object({
   fullName: z.string().min(2, 'Full name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
   countryCode: z.string(),
-  contactNumber: z.string().min(10, 'Contact number must be at least 10 digits').regex(/^\d+$/, 'Only digits allowed'),
+  contactNumber: z.string()
+    .min(7, 'Number too short')
+    .max(15, 'Number too long')
+    .regex(/^\d+$/, 'Only digits allowed'),
   altCountryCode: z.string().optional(),
-  altContactNumber: z.string().optional().refine((val) => !val || (val.length >= 10 && /^\d+$/.test(val)), {
-    message: 'Alt. contact number must be at least 10 digits and only contain digits',
-  }),
+  altContactNumber: z.string().optional()
+    .refine((val) => !val || (val.length >= 7 && val.length <= 15 && /^\d+$/.test(val)), {
+      message: 'Invalid alternate number (7-15 digits only)',
+    }),
   message: z.string().min(5, 'Message must be at least 5 characters'),
+}).superRefine((data, ctx) => {
+  // Validate primary phone with country code
+  const fullPhone = `${data.countryCode}${data.contactNumber}`
+  if (!isValidPhoneNumber(fullPhone)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: 'Invalid phone number for selected country',
+      path: ['contactNumber'],
+    })
+  }
+
+  // Validate alternate phone if provided
+  if (data.altContactNumber) {
+    const fullAltPhone = `${data.altCountryCode}${data.altContactNumber}`
+    if (!isValidPhoneNumber(fullAltPhone)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Invalid alternate phone number',
+        path: ['altContactNumber'],
+      })
+    }
+  }
 })
 
 const countryCodes = [
@@ -305,6 +332,11 @@ function PhoneInput({ id, register, selectName, inputName, error }) {
           type="tel"
           placeholder="Enter Your Contact Number"
           {...register(inputName)}
+          onKeyPress={(e) => {
+            if (!/[0-9]/.test(e.key)) {
+              e.preventDefault()
+            }
+          }}
         />
       </div>
       {error && <span className="error-text">{error.message}</span>}
@@ -574,6 +606,11 @@ function MobileQueryForm({ onClose }) {
                   type="tel"
                   placeholder="Enter Your Contact Number"
                   {...register('contactNumber')}
+                  onKeyPress={(e) => {
+                    if (!/[0-9]/.test(e.key)) {
+                      e.preventDefault()
+                    }
+                  }}
                 />
               </div>
               {errors.contactNumber && <span className="error-text">{errors.contactNumber.message}</span>}

@@ -79,23 +79,36 @@
   width: 2.5694%;
   min-width: 24px;
   aspect-ratio: 1;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 6px;
   border: 0;
   padding: 0;
   background: transparent;
   cursor: pointer;
   pointer-events: auto;
+  transition: transform 0.3s ease;
+}
+
+.menu-button:hover {
+  transform: scale(1.05);
 }
 
 .menu-button span {
-  width: 56.8%;
+  width: 24px;
   height: 1px;
   background: #fff;
+  transition: width 0.3s ease, transform 0.3s ease;
 }
 
-.menu-button span + span {
-  margin-top: -42%;
+.menu-button span:last-child {
+  width: 16px;
+}
+
+.menu-button:hover span:last-child {
+  width: 24px;
 }
 
 .logo-crop {
@@ -231,6 +244,11 @@
   width: 100%;
   height: 100%;
   overflow: visible;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.overlay-close:hover svg {
+  transform: rotate(90deg) scale(1.1);
 }
 
 .overlay-close path {
@@ -253,6 +271,18 @@
   overflow: hidden;
   background: #000;
   color: #fff;
+  animation: menuFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes menuFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .menu-close {
@@ -286,6 +316,26 @@
 
 .menu-list li {
   min-height: 43px;
+  opacity: 0;
+  animation: itemSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.menu-list li:nth-child(1) { animation-delay: 0.1s; }
+.menu-list li:nth-child(2) { animation-delay: 0.15s; }
+.menu-list li:nth-child(3) { animation-delay: 0.2s; }
+.menu-list li:nth-child(4) { animation-delay: 0.25s; }
+.menu-list li:nth-child(5) { animation-delay: 0.3s; }
+.menu-list li:nth-child(6) { animation-delay: 0.35s; }
+
+@keyframes itemSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .menu-list li + li {
@@ -305,6 +355,8 @@
   display: flex;
   flex-direction: column;
   gap: 50px;
+  opacity: 0;
+  animation: menuFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
 }
 
 .menu-socials a {
@@ -487,6 +539,18 @@
     height: 100%;
     max-height: none;
     min-height: 0;
+    animation: mobileMenuFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes mobileMenuFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .menu-close {
@@ -550,6 +614,19 @@
     justify-content: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     padding: 0 20px;
+    opacity: 0;
+    animation: mobileItemSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes mobileItemSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .menu-list li + li {
@@ -569,6 +646,18 @@
     justify-content: space-between;
     gap: 0;
     transform: translateX(-50%);
+    animation: mobileMenuSocialsFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  }
+
+  @keyframes mobileMenuSocialsFadeIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, 10px);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
   }
 
   .menu-socials a {
