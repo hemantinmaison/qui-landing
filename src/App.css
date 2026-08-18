@@ -237,6 +237,8 @@
   line-height: normal;
   letter-spacing: clamp(0.6px, 0.0833vw, 1.2px);
   text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .overlay-close {
@@ -551,7 +553,7 @@
     width: 32.0455%;
     height: 4.2887%;
     min-width: 0;
-    min-height: 0;
+    min-height: 40px;
     font-size: 14px;
     letter-spacing: 0.84px;
     border-radius: 10px;

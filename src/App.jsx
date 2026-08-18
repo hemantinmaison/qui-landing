@@ -127,7 +127,17 @@ function App() {
         </p>
       </section>
 
-      <a className="portfolio-button" href="#query">
+      <a
+        className="portfolio-button"
+        href="#query"
+        onClick={(event) => {
+          if (!window.matchMedia('(max-width: 760px)').matches) return
+          event.preventDefault()
+          scrollToTopOnMobile()
+          setIsMobileFormOpen(true)
+          setIsMenuOpen(false)
+        }}
+      >
         Request Portfolio
       </a>
 
