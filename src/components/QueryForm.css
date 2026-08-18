@@ -424,6 +424,7 @@
   }
 
   .mobile-form-overlay {
+    position: fixed;
     left: 0;
     top: 0;
     right: auto;
@@ -431,7 +432,8 @@
     display: block;
     width: 100%;
     height: 100vh;
-    overflow-y: auto;
+    height: 100dvh;
+    overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     padding: 15px 12px;
@@ -441,12 +443,14 @@
     position: relative;
     left: auto;
     top: auto;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     max-width: 382px;
-    height: auto;
-    min-height: calc(100vh - 30px);
+    height: 100%;
+    min-height: 0;
     margin: 0 auto;
-    padding: 92px 25px 38px;
+    padding: clamp(70px, 11vh, 92px) 25px clamp(18px, 3vh, 32px);
   }
 
   .mobile-form-panel h2 {
@@ -465,8 +469,11 @@
 
   .mobile-form-panel form {
     position: static;
+    flex: 1;
+    min-height: 0;
     display: grid;
-    gap: 23px;
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+    gap: clamp(10px, 2.2vh, 23px);
   }
 
   .mobile-form-field,
@@ -486,14 +493,40 @@
     font-size: clamp(14px, 4.4444vw, 16px);
   }
 
+  .mobile-form-field input,
+  .mobile-phone-input-wrapper,
+  .mobile-phone-input input {
+    height: clamp(40px, 6vh, 50px);
+  }
+
+  .mobile-message {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+  }
+
+  .mobile-message-wrapper {
+    flex: 1;
+    min-height: 0;
+    height: auto;
+  }
+
   .mobile-message textarea {
-    height: clamp(150px, 30vh, 225px);
+    height: 100%;
+    min-height: 72px;
+  }
+
+  .mobile-submit-container {
+    margin-top: 0;
+    gap: 6px;
   }
 
   .mobile-submit-button {
     position: static;
     justify-self: center;
     width: min(156px, 100%);
-    margin-top: 6px;
+    height: clamp(40px, 6vh, 44px);
+    margin-top: 0;
   }
 }
